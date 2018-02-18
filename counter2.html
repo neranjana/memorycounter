@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="./css/bootstrap.min.css"></head>
+<body>
+        <audio id="beep01">
+            <source src="beep01.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+        </audio>
+        <audio id="beep02">
+            <source src="beep02.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+        </audio>
+        <audio id="beep03">
+            <source src="beep03.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+        </audio>
+        <audio id="beep04">
+            <source src="beep04.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+        </audio>
+        <p class="text-center font-weight-bold" style="font-size: 250%;"><time>0</time></p>
+        
+        <select class="form-control" style="margin-top: 10px;" id="interval">
+            <option value="1">Every second</option>
+            <option value="2">Every 2 seconds</option>
+            <option value="3">Every 3 seconds</option>
+            <option value="4">Every 4 seconds</option>
+            <option value="5">Every 5 seconds</option>
+        </select>
+
+        <select class="form-control" style="margin-top: 10px; margin-bottom: 10px;" id="beep-select">
+            <option value="beep01">Sound 1</option>
+            <option value="beep02">Sound 2</option>
+            <option value="beep03">Sound 3</option>
+            <option value="beep04">Sound 4</option>
+        </select>
+        
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="start">start</button><br/>
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="stop">stop</button><br/>
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="clear">clear</button><br/>
+        
+
+        <script>
+            
+
+            function playAudio() {
+                var x = document.getElementById(document.getElementById("beep-select").value);
+                x.play();
+            }
+            var p = document.getElementsByTagName('p')[0],
+                start = document.getElementById('start'),
+                stop = document.getElementById('stop'),
+                clear = document.getElementById('clear'),
+                seconds = 0,
+                t;
+
+            function add() {
+                seconds++;
+                
+                
+                p.textContent = seconds;
+                playAudio();
+
+                timer();
+            }
+            function timer() {
+                var interval = document.getElementById("interval").value;
+                console.log(interval);
+                t = setTimeout(add, (1000 * interval));
+            }
+            //timer();
+
+
+            /* Start button */
+            start.onclick = function() {
+                document.getElementById("start").disabled = true;
+                timer();
+            }
+            /* Stop button */
+            stop.onclick = function() {
+                document.getElementById("start").disabled = false;
+                document.getElementById("clear").disabled = false;
+                clearTimeout(t);
+            }
+
+            /* Clear button */
+            clear.onclick = function() {
+                document.getElementById("clear").disabled = true;
+                seconds = 0;
+                p.textContent = "0";
+
+            }
+        </script>
+    
+</body>
+
+</html>
